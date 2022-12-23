@@ -1,10 +1,10 @@
 //=============================================================================
 //
-// リザルト画面処理 [result.cpp]
-// Author : 
+// リザルト画面処理 [resultBAD.cpp]
+// Author : GP11B132 30 矢崎貴哉
 //
 //=============================================================================
-#include "result.h"
+#include "resultBAD.h"
 #include "input.h"
 #include "score.h"
 #include "fade.h"
@@ -31,8 +31,8 @@ static ID3D11Buffer				*g_VertexBuffer = NULL;		// 頂点情報
 static ID3D11ShaderResourceView	*g_Texture[TEXTURE_MAX] = { NULL };	// テクスチャ情報
 
 static char *g_TexturName[TEXTURE_MAX] = {
-	"data/TEXTURE/CLAER_BG.png",
-	"data/TEXTURE/GAME_CLAER_LOGO.png",
+	"data/TEXTURE/pastel_BG.jpg",
+	"data/TEXTURE/GAME_OVER_LOGO.png",
 	"data/TEXTURE/number16x32.png",
 };
 
@@ -41,13 +41,14 @@ static BOOL						g_Use;						// TRUE:使っている  FALSE:未使用
 static float					g_w, g_h;					// 幅と高さ
 static XMFLOAT3					g_Pos;						// ポリゴンの座標
 static int						g_TexNo;					// テクスチャ番号
+static float					i;							//透明度をいじる
 
 static BOOL						g_Load = FALSE;
 
 //=============================================================================
 // 初期化処理
 //=============================================================================
-HRESULT InitResult(void)
+HRESULT InitBADResult(void)
 {
 	ID3D11Device *pDevice = GetDevice();
 
@@ -91,7 +92,7 @@ HRESULT InitResult(void)
 //=============================================================================
 // 終了処理
 //=============================================================================
-void UninitResult(void)
+void UninitBADResult(void)
 {
 	if (g_Load == FALSE) return;
 
@@ -116,20 +117,11 @@ void UninitResult(void)
 //=============================================================================
 // 更新処理
 //=============================================================================
-void UpdateResult(void)
+void UpdateBADResult(void)
 {
 
 	if (GetKeyboardTrigger(DIK_RETURN))
 	{// Enter押したら、ステージを切り替える
-		SetFade(FADE_OUT, MODE_TITLE);
-	}
-	// ゲームパッドで入力処理
-	else if (IsButtonTriggered(0, BUTTON_START))
-	{
-		SetFade(FADE_OUT, MODE_TITLE);
-	}
-	else if (IsButtonTriggered(0, BUTTON_B))
-	{
 		SetFade(FADE_OUT, MODE_TITLE);
 	}
 
@@ -143,7 +135,7 @@ void UpdateResult(void)
 //=============================================================================
 // 描画処理
 //=============================================================================
-void DrawResult(void)
+void DrawBADResult(void)
 {
 	// 頂点バッファ設定
 	UINT stride = sizeof(VERTEX_3D);
@@ -179,52 +171,17 @@ void DrawResult(void)
 		// テクスチャ設定
 		GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[1]);
 
+		if (i < 1.0f)
+		{
+			i += 0.004f;
+		}
+
 		// １枚のポリゴンの頂点とテクスチャ座標を設定
-		SetSprite(g_VertexBuffer, g_Pos.x, g_Pos.y, TEXTURE_WIDTH_LOGO, TEXTURE_HEIGHT_LOGO * 2, 0.0f, 0.0f, 1.0f, 1.0f);
+		SetSpriteLTColor(g_VertexBuffer, 230.0f, 200.0f, TEXTURE_WIDTH_LOGO, TEXTURE_HEIGHT_LOGO, 0.0f, 0.0f, 1.0f, 1.0f,XMFLOAT4(1.0f, 1.0f, 1.0f, 0.0f+i));
 
 		// ポリゴン描画
 		GetDeviceContext()->Draw(4, 0);
 	}
-
-
-	// スコア表示
-	{
-		// テクスチャ設定
-		GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[2]);
-
-		// 桁数分処理する
-		int number = GetScore();
-		for (int i = 0; i < SCORE_DIGIT; i++)
-		{
-			// 今回表示する桁の数字
-			float x = (float)(number % 10);
-
-			// スコアの位置やテクスチャー座標を反映
-			float pw = 16*4;			// スコアの表示幅
-			float ph = 32*4;			// スコアの表示高さ
-			float px = 600.0f - i*pw;	// スコアの表示位置X
-			float py = 300.0f;			// スコアの表示位置Y
-
-			float tw = 1.0f / 10;		// テクスチャの幅
-			float th = 1.0f / 1;		// テクスチャの高さ
-			float tx = x * tw;			// テクスチャの左上X座標
-			float ty = 0.0f;			// テクスチャの左上Y座標
-
-			// １枚のポリゴンの頂点とテクスチャ座標を設定
-			SetSpriteColor(g_VertexBuffer, px, py, pw, ph, tx, ty, tw, th,
-				XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
-
-			// ポリゴン描画
-			GetDeviceContext()->Draw(4, 0);
-
-			// 次の桁へ
-			number /= 10;
-		}
-
-	}
-
-
-
 }
 
 

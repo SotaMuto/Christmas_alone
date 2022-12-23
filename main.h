@@ -73,7 +73,8 @@ enum
 	MODE_TITLE = 0,			// タイトル画面
 	MODE_TUTORIAL,			// ゲーム説明画面
 	MODE_GAME,				// ゲーム画面
-	MODE_RESULT,			// リザルト画面
+	MODE_RESULTCLEAR,		// リザルト画面
+	MODE_RESULTBAD,
 	MODE_MAX
 };
 

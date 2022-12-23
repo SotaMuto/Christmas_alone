@@ -254,7 +254,7 @@ void UpdateEnemy(void)
 						if (ans == TRUE)
 						{
 							// 当たった時の処理
-						//	player[j].use = FALSE;	// デバッグで一時的に無敵にしておくか
+							//player[j].use = FALSE;	// デバッグで一時的に無敵にしておくか
 						}
 					}
 				}
@@ -269,7 +269,7 @@ void UpdateEnemy(void)
 	// エネミー全滅チェック
 	if (g_EnemyCnt <= 0)
 	{
-		SetFade(FADE_OUT, MODE_RESULT);
+		SetFade(FADE_OUT, MODE_RESULTCLEAR);
 	}
 
 #ifdef _DEBUG	// デバッグ情報を表示する

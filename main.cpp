@@ -17,6 +17,7 @@
 #include "bullet.h"
 #include "score.h"
 #include "result.h"
+#include "resultBAD.h"
 #include "sound.h"
 #include "fade.h"
 
@@ -320,8 +321,12 @@ void Update(void)
 		UpdateUI();
 		break;
 
-	case MODE_RESULT:		// リザルト画面の更新
+	case MODE_RESULTCLEAR:		// リザルト画面の更新
 		UpdateResult();
+		break;
+
+	case MODE_RESULTBAD:
+		UpdateBADResult();
 		break;
 	}
 
@@ -365,8 +370,12 @@ void Draw(void)
 		DrawUI();
 		break;
 
-	case MODE_RESULT:		// リザルト画面の描画
+	case MODE_RESULTCLEAR:		// リザルト画面の描画
 		DrawResult();
+		break;
+
+	case MODE_RESULTBAD:
+		DrawBADResult();
 		break;
 	}
 
@@ -438,6 +447,8 @@ void SetMode(int mode)
 	// リザルトの終了処理
 	UninitResult();
 
+	UninitBADResult();
+
 	// エフェクトの終了処理
 	UninitEffect();
 
@@ -472,9 +483,14 @@ void SetMode(int mode)
 		PlaySound(SOUND_LABEL_BGM_MATCH_UP);
 		break;
 
-	case MODE_RESULT:
+	case MODE_RESULTCLEAR:
 		InitResult();
 		PlaySound(SOUND_LABEL_BGM_sample002);
+		break;
+
+	case MODE_RESULTBAD:
+		InitBADResult();
+		PlaySound(SOUND_LABEL_BGM_GAMEOVER);
 		break;
 
 	case MODE_MAX:
