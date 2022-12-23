@@ -14,7 +14,7 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define ENEMY_MAX		(3)		// エネミーのMax人数
+#define ENEMY_MAX		(30)		// 障害物の数
 
 
 //*****************************************************************************
@@ -28,9 +28,9 @@ struct ENEMY
 	XMFLOAT3	scl;			// ポリゴンの拡大縮小
 	BOOL		use;			// true:使っている  false:未使用
 	float		w, h;			// 幅と高さ
-	float		countAnim;		// アニメーションカウント
-	int			patternAnim;	// アニメーションパターンナンバー
-	int			texNo;			// テクスチャ番号
+	//float		countAnim;		// アニメーションカウント
+	//int			patternAnim;	// アニメーションパターンナンバー
+	//int			texNo;			// テクスチャ番号
 	XMFLOAT3	move;			// 移動速度
 
 
@@ -38,9 +38,9 @@ struct ENEMY
 	int			tblNo;			// 行動データのテーブル番号
 	int			tblMax;			// そのテーブルのデータ数
 
-	//INTERPOLATION_DATA* tbl_adr;			// アニメデータのテーブル先頭アドレス
-	//int					tbl_size;			// 登録したテーブルのレコード総数
-	//float				move_time;			// 実行時間
+	INTERPOLATION_DATA* tbl_adr;			// アニメデータのテーブル先頭アドレス
+	int					tbl_size;			// 登録したテーブルのレコード総数
+	float				move_time;			// 実行時間
 };
 
 
