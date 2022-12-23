@@ -20,7 +20,7 @@
 //*****************************************************************************
 #define TEXTURE_WIDTH				(100)	// ƒeƒNƒXƒ`ƒƒ‚Ì•
 #define TEXTURE_HEIGHT				(80)	// ƒeƒNƒXƒ`ƒƒ‚Ì‚‚³
-#define TEXTURE_MAX					(1)		// ƒeƒNƒXƒ`ƒƒ‚Ì”
+#define TEXTURE_MAX					(2)		// ƒeƒNƒXƒ`ƒƒ‚Ì”
 
 
 //*****************************************************************************
@@ -36,7 +36,7 @@ static ID3D11ShaderResourceView	*g_Texture[TEXTURE_MAX] = { NULL };	// ƒeƒNƒXƒ`ƒ
 
 static char *g_TexturName[TEXTURE_MAX] = {
 	"data/TEXTURE/wood.png",
-
+	"data/TEXTURE/jump.png",
 };
 
 static BOOL		g_Load = FALSE;			// ‰Šú‰»‚ğs‚Á‚½‚©‚Ìƒtƒ‰ƒO
@@ -81,12 +81,13 @@ HRESULT InitUI(void)
 	for (int i = 0; i < TITLE_UI_MAX; i++)
 	{
 		g_UI[i].use = TRUE;
-		g_UI[i].pos = XMFLOAT3(630.0f, 440.0f, 0.0f);	// ¶ã‚©‚ç•\¦
+		g_UI[i].pos = XMFLOAT3(530.0f, 440.0f, 0.0f);	// ¶ã‚©‚ç•\¦
 		g_UI[i].w = TEXTURE_WIDTH;
 		g_UI[i].h = TEXTURE_HEIGHT;
 		g_UI[i].texNo = 0;
 
 	}
+	g_UI[3].texNo = 1;
 
 	g_Load = TRUE;	// ƒf[ƒ^‚Ì‰Šú‰»‚ğs‚Á‚½
 	return S_OK;
@@ -220,7 +221,7 @@ void DrawUI(void)
 			GetDeviceContext()->PSSetShaderResources(0, 1, &g_Texture[g_UI[i].texNo]);
 				
 			//ƒeƒNƒXƒ`ƒƒ‚É‚æ‚Á‚Äˆ—‚ğ•Ï‚¦‚é
-			if ( i <= 2 )
+			if ( i <= 3 )
 			{
 					// ‚P–‡‚Ìƒ|ƒŠƒSƒ“‚Ì’¸“_‚ÆƒeƒNƒXƒ`ƒƒÀ•W‚ğİ’è
 					SetSpriteLTColor(g_VertexBuffer,
