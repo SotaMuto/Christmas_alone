@@ -33,8 +33,8 @@ DWORD g_aSizeAudio[SOUND_LABEL_MAX] = {};					// オーディオデータサイズ
 SOUNDPARAM g_aParam[SOUND_LABEL_MAX] =
 {
 	{ (char*)"data/BGM/sample000.wav", -1 },	// BGM0
-	{ (char*)"data/BGM/bgm_maoudamashii_neorock73.wav", -1 },	// BGM1
-	{ (char*)"data/BGM/sample001.wav", -1 },	// BGM2
+	{ (char*)"data/BGM/MATCH_UP.wav", -1 },	// BGM1
+	{ (char*)"data/BGM/MATCH_UP.wav", -1 },	// BGM2
 	{ (char*)"data/SE/bomb000.wav", 0 },		// 弾発射音
 	{ (char*)"data/SE/defend000.wav", 0 },		// 弾発射音
 	{ (char*)"data/SE/defend001.wav", 0 },		// 弾発射音
