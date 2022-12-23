@@ -313,7 +313,7 @@ void Update(void)
 	case MODE_GAME:			// ゲーム画面の更新
 		UpdateBG();
 		UpdatePlayer();
-		UpdateEnemy();
+		//UpdateEnemy();
 		UpdateBullet();
 		UpdateEffect();
 		UpdateScore();
@@ -358,7 +358,7 @@ void Draw(void)
 	case MODE_GAME:			// ゲーム画面の描画
 		DrawBG();
 		DrawBullet();		// 重なる順番を意識してね
-		DrawEnemy();
+		//DrawEnemy();
 		DrawPlayer();
 		DrawEffect();
 		DrawScore();
@@ -427,7 +427,7 @@ void SetMode(int mode)
 	UninitPlayer();
 
 	// エネミーの終了処理
-	UninitEnemy();
+	//UninitEnemy();
 
 	// バレットの終了処理
 	UninitBullet();
@@ -456,7 +456,7 @@ void SetMode(int mode)
 		// ゲーム画面の初期化
 		InitBG();
 		InitPlayer();
-		InitEnemy();
+		//InitEnemy();
 		InitBullet();
 		InitEffect();
 		InitScore();

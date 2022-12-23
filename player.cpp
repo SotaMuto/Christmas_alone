@@ -97,7 +97,7 @@ HRESULT InitPlayer(void)
 	for (int i = 0; i < PLAYER_MAX; i++)
 	{
 		g_Player[i].use = TRUE;
-		g_Player[i].pos = XMFLOAT3(200.0f, 600.0f, 0.0f);
+		g_Player[i].pos = XMFLOAT3(200.0f, 700.0f, 0.0f);
 		g_Player[i].rot = XMFLOAT3(0.0f, 0.0f, 0.0f);
 		g_Player[i].w = TEXTURE_WIDTH;
 		g_Player[i].h = TEXTURE_HEIGHT;

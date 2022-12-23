@@ -81,7 +81,7 @@ HRESULT InitUI(void)
 	for (int i = 0; i < TITLE_UI_MAX; i++)
 	{
 		g_UI[i].use = TRUE;
-		g_UI[i].pos = XMFLOAT3(530.0f, 440.0f, 0.0f);	// ¶ã‚©‚ç•\Ž¦
+		g_UI[i].pos = XMFLOAT3(530.0f, 50.0f, 0.0f);	// ¶ã‚©‚ç•\Ž¦
 		g_UI[i].w = TEXTURE_WIDTH;
 		g_UI[i].h = TEXTURE_HEIGHT;
 		g_UI[i].texNo = 0;
