@@ -35,6 +35,7 @@ SOUNDPARAM g_aParam[SOUND_LABEL_MAX] =
 	{ (char*)"data/BGM/sample000.wav", -1 },	// BGM0
 	{ (char*)"data/BGM/bgm_maoudamashii_neorock73.wav", -1 },	// BGM1
 	{ (char*)"data/BGM/sample001.wav", -1 },	// BGM2
+	{ (char*)"data/BGM/71100b3751bf1376.wav", -1 },	// gameover
 	{ (char*)"data/SE/bomb000.wav", 0 },		// ’e”­ŽË‰¹
 	{ (char*)"data/SE/defend000.wav", 0 },		// ’e”­ŽË‰¹
 	{ (char*)"data/SE/defend001.wav", 0 },		// ’e”­ŽË‰¹

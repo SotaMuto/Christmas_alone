@@ -482,7 +482,7 @@ void SetMode(int mode)
 
 	case MODE_RESULTBAD:
 		InitBADResult();
-
+		PlaySound(SOUND_LABEL_BGM_GAMEOVER);
 		break;
 
 	case MODE_MAX:
