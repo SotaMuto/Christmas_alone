@@ -13,6 +13,7 @@
 #include "score.h"
 #include "file.h"
 
+
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -21,7 +22,7 @@
 #define TEXTURE_MAX					(2)		// テクスチャの数
 
 #define TEXTURE_PATTERN_DIVIDE_X	(3)		// アニメパターンのテクスチャ内分割数（X)
-#define TEXTURE_PATTERN_DIVIDE_Y	(4)		// アニメパターンのテクスチャ内分割数（Y)
+#define TEXTURE_PATTERN_DIVIDE_Y	(1)		// アニメパターンのテクスチャ内分割数（Y)
 #define ANIM_PATTERN_NUM			(TEXTURE_PATTERN_DIVIDE_X*TEXTURE_PATTERN_DIVIDE_Y)	// アニメーションパターン数
 #define ANIM_WAIT					(4)		// アニメーションの切り替わるWait値
 
@@ -31,7 +32,7 @@
 
 // ジャンプ処理
 #define	PLAYER_JUMP_CNT_MAX			(30)		// 30フレームで着地する
-#define	PLAYER_JUMP_Y_MAX			(300.0f)	// ジャンプの高さ
+#define	PLAYER_JUMP_Y_MAX			(200.0f)	// ジャンプの高さ
 
 
 //*****************************************************************************
@@ -47,7 +48,7 @@ static ID3D11Buffer				*g_VertexBuffer = NULL;				// 頂点情報
 static ID3D11ShaderResourceView	*g_Texture[TEXTURE_MAX] = { NULL };	// テクスチャ情報
 
 static char *g_TexturName[TEXTURE_MAX] = {
-	"data/TEXTURE/char01.png",
+	"data/TEXTURE/running.png",
 	"data/TEXTURE/shadow000.jpg",
 };
 
@@ -96,7 +97,7 @@ HRESULT InitPlayer(void)
 	for (int i = 0; i < PLAYER_MAX; i++)
 	{
 		g_Player[i].use = TRUE;
-		g_Player[i].pos = XMFLOAT3(400.0f, 400.0f, 0.0f);	// 中心点から表示
+		g_Player[i].pos = XMFLOAT3(200.0f, 700.0f, 0.0f);
 		g_Player[i].rot = XMFLOAT3(0.0f, 0.0f, 0.0f);
 		g_Player[i].w = TEXTURE_WIDTH;
 		g_Player[i].h = TEXTURE_HEIGHT;
@@ -108,7 +109,6 @@ HRESULT InitPlayer(void)
 		g_Player[i].move = XMFLOAT3(4.0f, 0.0f, 0.0f);		// 移動量
 
 		g_Player[i].dir = CHAR_DIR_DOWN;					// 下向きにしとくか
-		g_Player[i].moving = FALSE;							// 移動中フラグ
 		g_Player[i].patternAnim = g_Player[i].dir * TEXTURE_PATTERN_DIVIDE_X;
 
 		// ジャンプの初期化
@@ -116,6 +116,8 @@ HRESULT InitPlayer(void)
 		g_Player[i].jumpCnt = 0;
 		g_Player[i].jumpY = 0.0f;
 		g_Player[i].jumpYMax = PLAYER_JUMP_Y_MAX;
+
+		g_Player[i].usewood = 3;
 
 		// 分身用
 		g_Player[i].dash = FALSE;
@@ -168,6 +170,7 @@ void UpdatePlayer(void)
 		{
 			// 地形との当たり判定用に座標のバックアップを取っておく
 			XMFLOAT3 pos_old = g_Player[i].pos;
+			g_Player[i].pos.x += 5.0f;
 
 			// 分身用
 			for (int j = PLAYER_OFFSET_CNT - 1; j > 0; j--)
@@ -176,17 +179,13 @@ void UpdatePlayer(void)
 			}
 			g_Player[i].offset[0] = pos_old;
 
-			// アニメーション  
-			if (g_Player[i].moving == TRUE)
-			{
-				g_Player[i].countAnim += 1.0f;
+				g_Player[i].countAnim += 1.5f;
 				if (g_Player[i].countAnim > ANIM_WAIT)
 				{
 					g_Player[i].countAnim = 0.0f;
 					// パターンの切り替え
 					g_Player[i].patternAnim = (g_Player[i].dir * TEXTURE_PATTERN_DIVIDE_X) + ((g_Player[i].patternAnim + 1) % TEXTURE_PATTERN_DIVIDE_X);
 				}
-			}
 
 			// キー入力で移動 
 			{
@@ -195,65 +194,12 @@ void UpdatePlayer(void)
 				g_Player[i].moving = FALSE;
 				g_Player[i].dash = FALSE;
 
-				if (GetKeyboardPress(DIK_C) || IsButtonPressed(0, BUTTON_A))
-				{
-					speed *= 4;
-					g_Player[i].dash = TRUE;
-				}
+				//if (GetKeyboardPress(DIK_C) || IsButtonPressed(0, BUTTON_A))
+				//{
+				//	speed *= 4;
+				//	g_Player[i].dash = TRUE;
+				//}
 
-
-				if (GetKeyboardPress(DIK_DOWN))
-				{
-					g_Player[i].pos.y += speed;
-					g_Player[i].dir = CHAR_DIR_DOWN;
-					g_Player[i].moving = TRUE;
-				}
-				else if (GetKeyboardPress(DIK_UP))
-				{
-					g_Player[i].pos.y -= speed;
-					g_Player[i].dir = CHAR_DIR_UP;
-					g_Player[i].moving = TRUE;
-				}
-
-				if (GetKeyboardPress(DIK_RIGHT))
-				{
-					g_Player[i].pos.x += speed;
-					g_Player[i].dir = CHAR_DIR_RIGHT;
-					g_Player[i].moving = TRUE;
-				}
-				else if (GetKeyboardPress(DIK_LEFT))
-				{
-					g_Player[i].pos.x -= speed;
-					g_Player[i].dir = CHAR_DIR_LEFT;
-					g_Player[i].moving = TRUE;
-				}
-
-				// ゲームパッドでで移動処理
-				if (IsButtonPressed(0, BUTTON_DOWN))
-				{
-					g_Player[i].pos.y += speed;
-					g_Player[i].dir = CHAR_DIR_DOWN;
-					g_Player[i].moving = TRUE;
-				}
-				else if (IsButtonPressed(0, BUTTON_UP))
-				{
-					g_Player[i].pos.y -= speed;
-					g_Player[i].dir = CHAR_DIR_UP;
-					g_Player[i].moving = TRUE;
-				}
-
-				if (IsButtonPressed(0, BUTTON_RIGHT))
-				{
-					g_Player[i].pos.x += speed;
-					g_Player[i].dir = CHAR_DIR_RIGHT;
-					g_Player[i].moving = TRUE;
-				}
-				else if (IsButtonPressed(0, BUTTON_LEFT))
-				{
-					g_Player[i].pos.x -= speed;
-					g_Player[i].dir = CHAR_DIR_LEFT;
-					g_Player[i].moving = TRUE;
-				}
 
 				// 力業ジャンプ処理
 				//if (g_jumpCnt > 0)
@@ -272,9 +218,6 @@ void UpdatePlayer(void)
 				//	g_jumpCnt++;
 				//}
 
-
-
-
 				// ジャンプ処理中？
 				if (g_Player[i].jump == TRUE)
 				{
@@ -292,7 +235,7 @@ void UpdatePlayer(void)
 
 				}
 				// ジャンプボタン押した？
-				else if ((g_Player[i].jump == FALSE) && (GetKeyboardTrigger(DIK_J)))
+				else if ((g_Player[i].jump == FALSE) && (GetKeyboardTrigger(DIK_SPACE)))
 				{
 					g_Player[i].jump = TRUE;
 					g_Player[i].jumpCnt = 0;
@@ -357,7 +300,7 @@ void UpdatePlayer(void)
 				}
 
 				// バレット処理
-				if (GetKeyboardTrigger(DIK_SPACE))
+				if (GetKeyboardTrigger(DIK_B))
 				{
 					XMFLOAT3 pos = g_Player[i].pos;
 					pos.y += g_Player[i].jumpY;

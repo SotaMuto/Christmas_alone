@@ -9,7 +9,7 @@
 //*****************************************************************************
 // ƒ}ƒNƒ’è‹`
 //*****************************************************************************
-#define TEXTURE_WIDTH				(8000)			// (SCREEN_WIDTH)	// ”wŒiƒTƒCƒY
+#define TEXTURE_WIDTH				(4000)			// (SCREEN_WIDTH)	// ”wŒiƒTƒCƒY
 #define TEXTURE_HEIGHT				(1080)			// (SCREEN_HEIGHT)	// 
 #define TEXTURE_MAX					(3)				// ƒeƒNƒXƒ`ƒƒ‚Ì”
 
@@ -29,8 +29,6 @@ static ID3D11ShaderResourceView	*g_Texture[TEXTURE_MAX] = { NULL };	// ƒeƒNƒXƒ`ƒ
 
 static char *g_TexturName[TEXTURE_MAX] = {
 	"data/TEXTURE/map.png",
-	"data/TEXTURE/sky000.jpg",
-	"data/TEXTURE/sky001.jpg",
 };
 
 
@@ -115,7 +113,7 @@ void UpdateBG(void)
 	g_BG.old_pos = g_BG.pos;	// ‚PƒtƒŒ‘O‚Ìî•ñ‚ğ•Û‘¶
 
 
-	//g_BG.scrl -= 0.0f;		// 0.005f;		// ƒXƒNƒ[ƒ‹
+	//g_BG.scrl -= 0.005f;		// ƒXƒNƒ[ƒ‹
 
 
 #ifdef _DEBUG	// ƒfƒoƒbƒOî•ñ‚ğ•\¦‚·‚é

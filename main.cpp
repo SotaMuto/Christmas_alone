@@ -25,6 +25,9 @@
 
 #include "effect.h"
 
+#include "ui.h"
+
+
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -311,10 +314,11 @@ void Update(void)
 	case MODE_GAME:			// ゲーム画面の更新
 		UpdateBG();
 		UpdatePlayer();
-		UpdateEnemy();
+		//UpdateEnemy();
 		UpdateBullet();
 		UpdateEffect();
 		UpdateScore();
+		UpdateUI();
 		break;
 
 	case MODE_RESULTCLEAR:		// リザルト画面の更新
@@ -359,10 +363,11 @@ void Draw(void)
 	case MODE_GAME:			// ゲーム画面の描画
 		DrawBG();
 		DrawBullet();		// 重なる順番を意識してね
-		DrawEnemy();
+		//DrawEnemy();
 		DrawPlayer();
 		DrawEffect();
 		DrawScore();
+		DrawUI();
 		break;
 
 	case MODE_RESULTCLEAR:		// リザルト画面の描画
@@ -419,6 +424,8 @@ void SetMode(int mode)
 
 	// モードを変える前に全部メモリを解放しちゃう
 
+	UninitUI();
+
 	// タイトル画面の終了処理
 	UninitTitle();
 
@@ -429,7 +436,7 @@ void SetMode(int mode)
 	UninitPlayer();
 
 	// エネミーの終了処理
-	UninitEnemy();
+	//UninitEnemy();
 
 	// バレットの終了処理
 	UninitBullet();
@@ -460,10 +467,11 @@ void SetMode(int mode)
 		// ゲーム画面の初期化
 		InitBG();
 		InitPlayer();
-		InitEnemy();
+		//InitEnemy();
 		InitBullet();
 		InitEffect();
 		InitScore();
+		InitUI();
 
 		// ロードゲームだったらすべての初期化が終わった後にセーブデータを読み込む
 		if (g_LoadGame == TRUE)
@@ -472,7 +480,7 @@ void SetMode(int mode)
 			g_LoadGame = FALSE;		// ロードしたからフラグをClearする
 		}
 
-		PlaySound(SOUND_LABEL_BGM_sample001);
+		PlaySound(SOUND_LABEL_BGM_MATCH_UP);
 		break;
 
 	case MODE_RESULTCLEAR:

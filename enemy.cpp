@@ -39,7 +39,6 @@ static char *g_TexturName[TEXTURE_MAX] = {
 	"data/TEXTURE/bar_white.png",
 };
 
-
 static BOOL		g_Load = FALSE;			// 初期化を行ったかのフラグ
 static ENEMY	g_Enemy[ENEMY_MAX];		// エネミー構造体
 
@@ -52,13 +51,11 @@ static INTERPOLATION_DATA g_MoveTbl0[] = {
 	{ XMFLOAT3(250.0f, 250.0f, 0.0f),	XMFLOAT3(0.0f, 0.0f, 6.28f),	XMFLOAT3(2.0f, 2.0f, 1.0f),	60 },
 };
 
-
 static INTERPOLATION_DATA g_MoveTbl1[] = {
 	//座標									  回転率						拡大率						時間
 	{ XMFLOAT3(1700.0f,   0.0f, 0.0f),		  XMFLOAT3(0.0f, 0.0f, 0.0f),	XMFLOAT3(1.0f, 1.0f, 1.0f),	60 },
 	{ XMFLOAT3(1700.0f,  SCREEN_HEIGHT, 0.0f),XMFLOAT3(0.0f, 0.0f, 6.28f),	XMFLOAT3(2.0f, 2.0f, 1.0f),	60 },
 };
-
 
 static INTERPOLATION_DATA g_MoveTbl2[] = {
 	//座標											回転率							拡大率						時間

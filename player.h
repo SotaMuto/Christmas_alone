@@ -53,6 +53,7 @@ struct PLAYER
 	float		jumpY;			// ジャンプの高さ
 	int			jumpCnt;		// ジャンプ中のカウント
 	float		jumpYMax;		// 
+	int			usewood;
 };
 
 
