@@ -28,9 +28,7 @@ static ID3D11Buffer				*g_VertexBuffer = NULL;		// 頂点情報
 static ID3D11ShaderResourceView	*g_Texture[TEXTURE_MAX] = { NULL };	// テクスチャ情報
 
 static char *g_TexturName[TEXTURE_MAX] = {
-	"data/TEXTURE/map.png",
-	"data/TEXTURE/sky000.jpg",
-	"data/TEXTURE/sky001.jpg",
+	"data/TEXTURE/bg.png",
 };
 
 
@@ -115,7 +113,7 @@ void UpdateBG(void)
 	g_BG.old_pos = g_BG.pos;	// １フレ前の情報を保存
 
 
-	//g_BG.scrl -= 0.0f;		// 0.005f;		// スクロール
+	//g_BG.scrl -= 0.005f;		// スクロール
 
 
 #ifdef _DEBUG	// デバッグ情報を表示する
