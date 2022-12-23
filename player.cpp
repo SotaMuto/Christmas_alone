@@ -117,6 +117,8 @@ HRESULT InitPlayer(void)
 		g_Player[i].jumpY = 0.0f;
 		g_Player[i].jumpYMax = PLAYER_JUMP_Y_MAX;
 
+		g_Player[i].usewood = 3;
+
 		// ï™êgóp
 		g_Player[i].dash = FALSE;
 		for (int j = 0; j < PLAYER_OFFSET_CNT; j++)

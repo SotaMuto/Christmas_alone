@@ -24,6 +24,9 @@
 
 #include "effect.h"
 
+#include "ui.h"
+
+
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -314,6 +317,7 @@ void Update(void)
 		UpdateBullet();
 		UpdateEffect();
 		UpdateScore();
+		UpdateUI();
 		break;
 
 	case MODE_RESULT:		// リザルト画面の更新
@@ -358,6 +362,7 @@ void Draw(void)
 		DrawPlayer();
 		DrawEffect();
 		DrawScore();
+		DrawUI();
 		break;
 
 	case MODE_RESULT:		// リザルト画面の描画
@@ -410,6 +415,8 @@ void SetMode(int mode)
 
 	// モードを変える前に全部メモリを解放しちゃう
 
+	UninitUI();
+
 	// タイトル画面の終了処理
 	UninitTitle();
 
@@ -453,6 +460,7 @@ void SetMode(int mode)
 		InitBullet();
 		InitEffect();
 		InitScore();
+		InitUI();
 
 		// ロードゲームだったらすべての初期化が終わった後にセーブデータを読み込む
 		if (g_LoadGame == TRUE)
